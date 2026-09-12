@@ -13,7 +13,7 @@ export const loginUser = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'Password must be at least 8 characters long.'});
     };
     try {
-        const result = await pool.query('SELECT id, name, email, password FROM users WHERE email = $1',
+        const result = await pool.query('SELECT id, name, email, password_hash FROM users WHERE email = $1',
             [email]
         );
         const user = result.rows[0];
@@ -23,7 +23,7 @@ export const loginUser = async (req: Request, res: Response) => {
             return;
         };
 
-        const passwordMatches = await bcrypt.compare(password, user.password);
+        const passwordMatches = await bcrypt.compare(password, user.password_hash);
         if (!passwordMatches) {
             res.status(401).json({ error: 'Invalid email or password.'});
             return;
@@ -33,6 +33,7 @@ export const loginUser = async (req: Request, res: Response) => {
         
         return res.json({ token, user: { id: user.id, name: user.name, email: user.email }});
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ message: 'Server error. Could not login user.'});
     }
 }
