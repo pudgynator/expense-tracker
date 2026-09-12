@@ -1,11 +1,11 @@
-import { Register } from './pages/Register'
+// import { Register } from './pages/Register'
+import { AppLayout } from "./layout/AppLayout";
 
 function App() {
 
   return (
-    <>
-      <Register />
-    </>
+    <AppLayout />
+      
   )
 }
 
