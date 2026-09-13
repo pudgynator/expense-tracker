@@ -17,7 +17,7 @@ export function AuthInput({ label, type, icon: Icon, value, onChange }: AuthInpu
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full border-b border-stone-400 bg-transparent pb-2 pr-8 text-sm text-stone-800 outline-none focus:border-lime-400"
+                className="w-full border-b border-stone-400 bg-transparent pb-2 pr-8 text-sm text-stone-900 outline-none focus:border-violet-400"
             />
             <Icon className="absolute right-0 bottom-2 h-4 w-4 text-stone-500" />
         </div>

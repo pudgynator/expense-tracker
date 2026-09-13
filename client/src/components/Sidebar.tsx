@@ -12,7 +12,7 @@ const navItems = [
 
 export function Sidebar() {
     return (
-        <div className="flex flex-col p-4 bg-lime-50 min-w-3xs">
+        <div className="flex flex-col p-4 bg-violet-50 min-w-3xs">
             <h1 className="text-2xl font-bold mb-6">
                 Sidebar
             </h1>
@@ -24,8 +24,8 @@ export function Sidebar() {
                                 href={item.href}
                                 className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium 
                                 ${ item.active
-                                    ? "bg-lime-500 text-white"
-                                    : "text-stone-500 hover:bg-lime-300"
+                                    ? "bg-violet-500 text-white"
+                                    : "text-stone-900 hover:bg-violet-300"
                                 }`}
                             >
                                 <item.icon className="h-4 w-4" />
@@ -35,8 +35,8 @@ export function Sidebar() {
                     ))}
                 </ul>
             </nav>
-            <button className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-stone-500 cursor-pointer mt-auto">
-                <LogOut className="h-6 w-6 text-lime-500" />
+            <button className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-stone-900 cursor-pointer mt-auto">
+                <LogOut className="h-6 w-6 text-violet-500" />
                 Log out
             </button>
         </div>
