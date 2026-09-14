@@ -22,7 +22,7 @@ export function Sidebar() {
                         <li key={item.label}>
                             <a
                                 href={item.href}
-                                className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium 
+                                className={`flex items-center gap-3 rounded-3xl px-4 py-2.5 text-sm font-medium 
                                 ${ item.active
                                     ? "bg-violet-500 text-white"
                                     : "text-stone-900 hover:bg-violet-300"
