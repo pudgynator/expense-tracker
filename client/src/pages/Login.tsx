@@ -15,7 +15,7 @@ export function Login() {
 
     return (
         <div className="flex items-center justify-center bg-stone-100 px-4 min-h-screen ">
-            <div className="flex flex-col min-w-sm py-8 px-4 items-center justify-center bg-white rounded-sm shadow-md">
+            <div className="flex flex-col min-w-sm py-8 px-4 items-center justify-center bg-white rounded-3xl shadow-md">
                 <div className="flex flex-col gap-2 items-center justify-center mb-10">
                     <LogIn className="h-6 w-6 text-violet-500" />
                     <p className="text-stone-600 text-xl font-bold ">
@@ -41,7 +41,7 @@ export function Login() {
                         </button>
                     </div>
 
-                    <button className="bg-violet-500 px-8 py-2 w-max rounded-lg text-white font-semibold hover:bg-violet-600 transition-colors">
+                    <button className="bg-violet-500 px-8 py-2 w-max rounded-3xl text-white font-semibold hover:bg-violet-600 transition-colors">
                         Login
                     </button>
                 </form>
