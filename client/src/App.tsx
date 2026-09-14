@@ -2,11 +2,7 @@
 import { AppLayout } from "./layout/AppLayout";
 
 function App() {
-
-  return (
-    <AppLayout />
-      
-  )
+  return <AppLayout />;
 }
 
-export default App
+export default App;
