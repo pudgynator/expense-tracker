@@ -5,18 +5,19 @@ import {
   Target,
   PiggyBank,
   BarChart3,
-  Settings,
+  CircleUserRound,
   LogOut,
-} from "lucide-react";
+} from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
 const navItems = [
-  { label: "Dashboard", icon: LayoutGrid, href: "#", active: true },
-  { label: "Transactions", icon: ArrowLeftRight, href: "#", active: false },
-  { label: "Wallet", icon: Wallet, href: "#", active: false },
-  { label: "Goals", icon: Target, href: "#", active: false },
-  { label: "Budget", icon: PiggyBank, href: "#", active: false },
-  { label: "Analytics", icon: BarChart3, href: "#", active: false },
-  { label: "Settings", icon: Settings, href: "#", active: false },
+  { label: 'Dashboard', icon: LayoutGrid, to: '/' },
+  { label: 'Transactions', icon: ArrowLeftRight, to: '#' },
+  { label: 'Wallet', icon: Wallet, to: '#' },
+  { label: 'Goals', icon: Target, to: '#' },
+  { label: 'Budget', icon: PiggyBank, to: '#' },
+  { label: 'Analytics', icon: BarChart3, to: '#' },
+  { label: 'Profile', icon: CircleUserRound, to: '/profile' },
 ];
 
 export function Sidebar() {
@@ -27,26 +28,38 @@ export function Sidebar() {
         <ul className="flex flex-col gap-1">
           {navItems.map((item) => (
             <li key={item.label}>
-              <a
-                href={item.href}
-                className={`flex items-center gap-3 rounded-3xl px-4 py-2.5 text-sm font-medium 
-                                ${
-                                  item.active
-                                    ? "bg-violet-500 text-white"
-                                    : "text-stone-900 hover:bg-violet-300"
-                                }`}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </a>
+              {item.to === '#' ? (
+                <span className="flex items-center gap-3 rounded-3xl px-4 py-2.5 text-sm font-medium text-stone-400 cursor-not-allowed">
+                  <item.icon className="h-4 w-4" />
+                  {item.label}
+                </span>
+              ) : (
+                <NavLink
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 rounded-3xl px-4 py-2.5 text-sm font-medium ${
+                      isActive
+                        ? 'bg-violet-500 text-white'
+                        : 'text-stone-900 hover:bg-violet-300'
+                    }`
+                  }
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.label}
+                </NavLink>
+              )}
             </li>
           ))}
         </ul>
       </nav>
-      <button className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-stone-900 cursor-pointer mt-auto">
+      <NavLink
+        to="/login"
+        className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium text-stone-900 cursor-pointer mt-auto"
+      >
         <LogOut className="h-6 w-6 text-violet-500" />
         Log out
-      </button>
+      </NavLink>
     </div>
   );
 }
