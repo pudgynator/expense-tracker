@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
 import { StatCard } from './StatCard';
-import { CircleUserRound } from 'lucide-react';
+import { CircleUserRound, Wallet, TrendingUp, Receipt, PiggyBank } from 'lucide-react';
 
 export function Dashboard() {
   return (
     <div className="flex flex-col px-6 py-4 gap-6 w-full">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-stone-800 font-bold text-2xl">Welcome back, User!</h1>
+          <h1 className="text-stone-800 font-bold text-2xl">
+            Welcome back, User!
+          </h1>
           <p className="text-stone-400 leading-none text-sm">
-            It is best time to manage your finances
+            It is the best time to manage your finances
           </p>
         </div>
         <Link
@@ -22,10 +24,10 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        <StatCard title="Total balance" amount={5000} change={10} />
-        <StatCard title="Income" amount={5000} change={10} />
-        <StatCard title="Expense" amount={5000} change={10} />
-        <StatCard title="Total savings" amount={5000} change={10} />
+        <StatCard title="Total balance" amount={5840} change={12} icon={Wallet} />
+        <StatCard title="Income" amount={3200} change={8} icon={TrendingUp} />
+        <StatCard title="Expense" amount={1460} change={-4} icon={Receipt} />
+        <StatCard title="Total savings" amount={1180} change={15} icon={PiggyBank} />
       </div>
     </div>
   );
