@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { StatCard } from './StatCard';
 import { RecentTransactions } from './RecentTransactions';
+import { MonthlyBudget } from './MonthlyBudget';
 import { CircleUserRound, Wallet, TrendingUp, Receipt, PiggyBank } from 'lucide-react';
 
 export function Dashboard() {
@@ -31,7 +32,12 @@ export function Dashboard() {
         <StatCard title="Total savings" amount={1180} change={15} icon={PiggyBank} />
       </div>
 
-      <RecentTransactions />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2">
+          <RecentTransactions />
+        </div>
+        <MonthlyBudget spent={1460} limit={2000} />
+      </div>
     </div>
   );
 }
