@@ -1,45 +1,20 @@
-import { Coffee, ShoppingBag, Bus, type LucideIcon } from 'lucide-react';
-
-type Transaction = {
-  id: number;
-  name: string;
-  category: string;
-  amount: number;
-  date: string;
-  icon: LucideIcon;
-};
-
-const recentTransactions: Transaction[] = [
-  {
-    id: 1,
-    name: 'Coffee shop',
-    category: 'Food',
-    amount: -4.5,
-    date: 'Today',
-    icon: Coffee,
-  },
-  {
-    id: 2,
-    name: 'Grocery store',
-    category: 'Shopping',
-    amount: -32.8,
-    date: 'Yesterday',
-    icon: ShoppingBag,
-  },
-  {
-    id: 3,
-    name: 'City bus pass',
-    category: 'Transport',
-    amount: -12,
-    date: 'Sep 14',
-    icon: Bus,
-  },
-];
+import { Link } from 'react-router-dom';
+import { transactions } from '../../data/transactions';
 
 export function RecentTransactions() {
+  const recentTransactions = transactions.slice(0, 3);
+
   return (
     <div className="flex flex-col gap-3 p-4 rounded-3xl border border-stone-300">
-      <p className="text-stone-800 text-sm font-bold">Recent transactions</p>
+      <div className="flex items-center justify-between">
+        <p className="text-stone-800 text-sm font-bold">Recent transactions</p>
+        <Link
+          to="/transactions"
+          className="text-xs font-medium text-violet-500 hover:underline"
+        >
+          See all
+        </Link>
+      </div>
       <ul className="flex flex-col gap-2">
         {recentTransactions.map((transaction) => (
           <li
