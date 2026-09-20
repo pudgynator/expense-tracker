@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 const navItems = [
   { label: 'Dashboard', icon: LayoutGrid, to: '/' },
-  { label: 'Transactions', icon: ArrowLeftRight, to: '#' },
+  { label: 'Transactions', icon: ArrowLeftRight, to: '/transactions' },
   { label: 'Wallet', icon: Wallet, to: '#' },
   { label: 'Goals', icon: Target, to: '#' },
   { label: 'Budget', icon: PiggyBank, to: '#' },
