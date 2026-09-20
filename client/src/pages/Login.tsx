@@ -1,6 +1,7 @@
 import { Mail, Lock, LogIn } from "lucide-react";
 import { AuthInput } from "../components/AuthInput";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -61,6 +62,12 @@ export function Login() {
           <button className="bg-violet-500 px-8 py-2 w-max rounded-3xl text-white font-semibold hover:bg-violet-600 transition-colors">
             Login
           </button>
+          <p className="text-sm text-stone-400 mt-4">
+            Don&apos;t have an account?{' '}
+            <Link to="/register" className="text-violet-500 hover:underline">
+              Create one
+            </Link>
+          </p>
         </form>
       </div>
     </div>

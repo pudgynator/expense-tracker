@@ -1,6 +1,7 @@
 import { User, Lock, Mail } from "lucide-react";
 import { AuthInput } from "../components/AuthInput";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function Register() {
   const [name, setName] = useState("");
@@ -50,6 +51,12 @@ export function Register() {
           <button className="bg-violet-500 px-8 py-2 w-max rounded-3xl text-white font-semibold hover:bg-violet-600 transition-colors">
             Create
           </button>
+          <p className="text-sm text-stone-400 mt-4">
+            Already have an account?{' '}
+            <Link to="/login" className="text-violet-500 hover:underline">
+              Sign in
+            </Link>
+          </p>
         </form>
       </div>
     </div>
