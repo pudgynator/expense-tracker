@@ -1,9 +1,9 @@
-import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { pool } from '../db.js';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
@@ -30,6 +30,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
         return res.status(201).json({ token, user: { id: user.id, name: user.name, email: user.email }});
     } catch (error) {
-        return res.status(500).json({ message: 'Server error. Could not register user.'});
+        return next(error);
     }
 };
