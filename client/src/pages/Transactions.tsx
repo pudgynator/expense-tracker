@@ -5,11 +5,16 @@ import { categories, transactions } from '../data/transactions';
 
 export function Transactions() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [search, setSearch] = useState('');
 
-  const visibleTransactions =
-    activeCategory === 'All'
-      ? transactions
-      : transactions.filter((transaction) => transaction.category === activeCategory);
+  const visibleTransactions = transactions.filter((transaction) => {
+    const matchesCategory =
+      activeCategory === 'All' || transaction.category === activeCategory;
+    const matchesSearch = transaction.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="flex flex-col px-6 py-4 gap-6 w-full">
@@ -27,6 +32,16 @@ export function Transactions() {
           <CircleUserRound className="w-8 h-8 rounded-full" />
           <span className="text-stone-800 font-medium text-sm">User</span>
         </Link>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <input
+          type="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search transactions..."
+          className="w-full max-w-xs border-b border-stone-400 bg-transparent pb-2 text-sm text-stone-900 outline-none focus:border-violet-400"
+        />
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -48,7 +63,7 @@ export function Transactions() {
 
       <div className="flex flex-col gap-3 p-4 rounded-3xl border border-stone-300">
         {visibleTransactions.length === 0 ? (
-          <p className="text-stone-400 text-sm">No transactions in this category.</p>
+          <p className="text-stone-400 text-sm">No transactions match your filters.</p>
         ) : (
           <ul className="flex flex-col gap-2">
             {visibleTransactions.map((transaction) => (
