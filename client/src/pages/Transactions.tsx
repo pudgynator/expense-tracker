@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CircleUserRound } from 'lucide-react';
-import { categories, transactions } from '../data/transactions';
+import { categories } from '../data/transactions';
+import { useTransactions } from '../context/TransactionsContext';
+import { TransactionRow } from '../components/TransactionRow';
 
 export function Transactions() {
+  const { transactions } = useTransactions();
   const [activeCategory, setActiveCategory] = useState('All');
   const [search, setSearch] = useState('');
 
@@ -65,38 +68,11 @@ export function Transactions() {
         {visibleTransactions.length === 0 ? (
           <p className="text-stone-400 text-sm">No transactions match your filters.</p>
         ) : (
-          <ul className="flex flex-col gap-2">
-            {visibleTransactions.map((transaction) => (
-              <li
-                key={transaction.id}
-                className="flex items-center justify-between gap-3 py-2"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="rounded-full p-2 border border-stone-300">
-                    <transaction.icon className="w-4 h-4 text-violet-500" />
-                  </span>
-                  <div>
-                    <p className="text-stone-800 text-sm font-medium">
-                      {transaction.name}
-                    </p>
-                    <p className="text-stone-400 text-xs">
-                      {transaction.category} · {transaction.date}
-                    </p>
-                  </div>
-                </div>
-                <p
-                  className={`text-sm font-semibold ${
-                    transaction.amount >= 0 ? 'text-green-600' : 'text-stone-800'
-                  }`}
-                >
-                  {transaction.amount >= 0 ? '+' : '-'}$
-                  {Math.abs(transaction.amount).toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                  })}
-                </p>
-              </li>
-            ))}
-          </ul>
+            <ul className="flex flex-col gap-2">
+              {visibleTransactions.map((transaction) => (
+                <TransactionRow key={transaction.id} transaction={transaction} />
+              ))}
+            </ul>
         )}
       </div>
     </div>

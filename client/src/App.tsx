@@ -3,6 +3,7 @@ import { AppLayout } from './layout/AppLayout';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { UserProfile } from './pages/UserProfile';
 import { Transactions } from './pages/Transactions';
+import { Expenses } from './pages/Expenses';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/transactions" element={<Transactions />} />
+          <Route path="/expenses" element={<Expenses />} />
           <Route path="/profile" element={<UserProfile />} />
         </Route>
       </Routes>

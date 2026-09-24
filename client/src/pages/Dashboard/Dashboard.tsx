@@ -3,8 +3,13 @@ import { StatCard } from './StatCard';
 import { RecentTransactions } from './RecentTransactions';
 import { MonthlyBudget } from './MonthlyBudget';
 import { CircleUserRound, Wallet, TrendingUp, Receipt, PiggyBank } from 'lucide-react';
+import { useTransactions } from '../../context/TransactionsContext';
 
 export function Dashboard() {
+  const { transactions } = useTransactions();
+  const spent = transactions
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0);
   return (
     <div className="flex flex-col px-6 py-4 gap-6 w-full">
       <div className="flex justify-between items-center">
@@ -28,7 +33,7 @@ export function Dashboard() {
       <div className="grid grid-cols-4 gap-4">
         <StatCard title="Total balance" amount={5840} change={12} icon={Wallet} />
         <StatCard title="Income" amount={3200} change={8} icon={TrendingUp} />
-        <StatCard title="Expense" amount={1460} change={-4} icon={Receipt} />
+        <StatCard title="Expense" amount={spent} change={-4} icon={Receipt} />
         <StatCard title="Total savings" amount={1180} change={15} icon={PiggyBank} />
       </div>
 
@@ -36,7 +41,7 @@ export function Dashboard() {
         <div className="lg:col-span-2">
           <RecentTransactions />
         </div>
-        <MonthlyBudget spent={1460} limit={2000} />
+        <MonthlyBudget spent={spent} limit={2000} />
       </div>
     </div>
   );

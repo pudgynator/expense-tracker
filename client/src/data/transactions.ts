@@ -1,4 +1,4 @@
-import { Coffee, ShoppingBag, Bus, Briefcase, type LucideIcon } from 'lucide-react';
+import { Coffee, ShoppingBag, Bus, Briefcase, Receipt, type LucideIcon } from 'lucide-react';
 
 export type Transaction = {
   id: number;
@@ -53,3 +53,16 @@ export const transactions: Transaction[] = [
 ];
 
 export const categories = ['All', 'Food', 'Shopping', 'Transport', 'Income'];
+
+export const expenseCategories = ['Food', 'Shopping', 'Transport'];
+
+export const categoryIcons: Record<string, LucideIcon> = {
+  Food: Coffee,
+  Shopping: ShoppingBag,
+  Transport: Bus,
+  Income: Briefcase,
+};
+
+export function iconForCategory(category: string): LucideIcon {
+  return categoryIcons[category] ?? Receipt;
+}

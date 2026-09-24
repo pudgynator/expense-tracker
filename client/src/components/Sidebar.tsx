@@ -6,6 +6,7 @@ import {
   PiggyBank,
   BarChart3,
   CircleUserRound,
+  Receipt,
   LogOut,
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
@@ -13,6 +14,7 @@ import { NavLink } from 'react-router-dom';
 const navItems = [
   { label: 'Dashboard', icon: LayoutGrid, to: '/' },
   { label: 'Transactions', icon: ArrowLeftRight, to: '/transactions' },
+  { label: 'Expenses', icon: Receipt, to: '/expenses' },
   { label: 'Wallet', icon: Wallet, to: '#' },
   { label: 'Goals', icon: Target, to: '#' },
   { label: 'Budget', icon: PiggyBank, to: '#' },
