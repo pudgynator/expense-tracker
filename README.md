@@ -2,17 +2,19 @@
 
 A personal finance app for tracking spending, income, and budgets. The project is split into a React frontend and an Express API with PostgreSQL.
 
-This is a work in progress.
+This is a work in progress. Auth and expense endpoints exist on the server. The UI still uses shared in-memory sample data, and the login/register screens are not wired to the API yet.
 
 ## Features
 
 - Register and log in with name, email, and password
-- JWT-based authentication 
+- JWT-based authentication (tokens expire after 3 hours)
 - Dashboard with balance, income, expense, and savings cards
-- Recent transactions list
+- Recent transactions list (shared with the Expenses page)
 - Monthly budget progress
+- Transactions page with search and category filters
+- Expenses page to add and delete spending
 - User profile page for name and email
-- Sidebar navigation between Dashboard and Profile
+- Sidebar navigation between Dashboard, Transactions, Expenses, and Profile
 
 ## Tech stack
 
@@ -27,10 +29,11 @@ This is a work in progress.
 **Server** (`server/`)
 
 - Express 5
-- TypeScript 
-- PostgreSQL
+- TypeScript (`tsx` in development)
+- PostgreSQL (`pg`)
 - bcrypt for password hashing
 - JSON Web Tokens for auth
+
 
 ## Prerequisites
 
@@ -49,7 +52,7 @@ cd ../server && npm install
 
 ### Server environment
 
-Create `server/.env`:
+Create `server/.env` (this file is gitignored):
 
 ```env
 PORT=3000
@@ -57,7 +60,23 @@ DATABASE_URL=postgres://USER:PASSWORD@localhost:5432/expense_tracker
 JWT_SECRET=replace-with-a-long-random-string
 ```
 
-The `users` table should include at least `id`, `name`, `email`, and `password_hash`.
+The client Vite proxy sends `/api` requests to `http://localhost:3000`, so set `PORT=3000` (the server otherwise defaults to `3001`).
+
+**Tables**
+
+`users` should include at least `id`, `name`, `email`, and `password_hash`.
+
+```sql
+CREATE TABLE IF NOT EXISTS expenses (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  category_id INTEGER,
+  amount NUMERIC(12, 2) NOT NULL,
+  description TEXT,
+  date DATE NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+```
 
 ### Run in development
 
@@ -75,17 +94,20 @@ cd client
 npm run dev
 ```
 
-Open the Vite URL
-## API
+Open the Vite URL (usually `http://localhost:5173`).
 
-| Method | Path            | Body                                      | Description                          |
-| ------ | --------------- | ----------------------------------------- | ------------------------------------ |
-| POST   | `/api/register` | `{ name, email, password }`               | Create a user and return a JWT       |
-| POST   | `/api/login`    | `{ email, password }`                     | Verify credentials and return a JWT  |
-
+| Path             | Page         |
+| ---------------- | ------------ |
+| `/login`         | Sign in      |
+| `/register`      | Create account |
+| `/`              | Dashboard    |
+| `/dashboard`     | Dashboard    |
+| `/transactions`  | Transactions |
+| `/expenses`      | Expenses     |
+| `/profile`       | User profile |
 Password must be at least 8 characters.
 
-Successful responses look like:
+Successful register/login responses look like:
 
 ```json
 {
@@ -94,33 +116,33 @@ Successful responses look like:
 }
 ```
 
-Protected routes can use the `requireAuth` middleware with:
+Expense routes require:
 
 ```http
 Authorization: Bearer <token>
 ```
 
-Expense and category types are already defined on the server, but those endpoints are not implemented yet.
+Unexpected errors go through `errorHandler` in `server/src/middleware/error.ts`.
 
 ## Scripts
 
 **Client**
 
-| Script            | What it does              |
-| ----------------- | ------------------------- |
-| `npm run dev`     | Start Vite                |
+| Script            | What it does                    |
+| ----------------- | ------------------------------- |
+| `npm run dev`     | Start Vite                      |
 | `npm run build`   | Type-check and production build |
-| `npm run lint`    | Run ESLint                |
-| `npm run format`  | Format with Prettier      |
-| `npm run preview` | Preview the production build |
+| `npm run lint`    | Run ESLint                      |
+| `npm run format`  | Format with Prettier            |
+| `npm run preview` | Preview the production build    |
 
 **Server**
 
-| Script          | What it does                         |
-| --------------- | ------------------------------------ |
-| `npm run dev`   | Watch mode with `tsx` and `.env`     |
-| `npm run build` | Compile TypeScript to `dist/`        |
-| `npm run start` | Run the compiled server              |
+| Script          | What it does                     |
+| --------------- | -------------------------------- |
+| `npm run dev`   | Watch mode with `tsx` and `.env` |
+| `npm run build` | Compile TypeScript to `dist/`    |
+| `npm run start` | Run the compiled server          |
 
 ## Formatting
 
@@ -132,4 +154,4 @@ npm run format
 
 ## Current status
 
-The UI for dashboard, profile, login, and register is in place. Dashboard numbers and transactions are placeholders. Login and register screens are not yet connected to the API, and expense CRUD is still to come.
+Dashboard, transactions, expenses, profile, login, and register screens are in place. Client spending data is shared in React context (not fetched from the API yet). Login and register forms are not connected to `/api/login` and `/api/register`.
